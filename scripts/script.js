@@ -83,3 +83,14 @@ let notesArray = [{
     }];
 let save = document.querySelector('.row3 .green');
 save.addEventListener('click', store_notes);
+
+function select_note (e) {
+    for (let notes of notesArray) {
+        if (e.target.innerText === notes.title) {
+            note_area = document.querySelector('textarea');
+            note_area.value = notes.title + '\n' + notes.body;
+        }
+    }
+}
+let nav_menu = document.querySelector('nav ul');
+nav_menu.addEventListener('click', select_note);
