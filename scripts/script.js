@@ -22,18 +22,20 @@ function lighttheme(e) {
 let theme = document.querySelector('.grey');
 theme.addEventListener('click', darktheme);
 
-function remove(e) {
+function remove() {
     let new_note = document.querySelector('.row1 .green');
-    let note = document.querySelector('textarea');
+    let cancel = document.querySelector('.row3 .red')
+    let note = document.querySelector('.row2');
     let save = document.querySelector('.row3 .green');
-    let disappear = [note, save, e.target];
+    let disappear = [note, save, cancel];
     for (let element of disappear) {
         element.style.display = 'none';
     }
     new_note.addEventListener('click', add);
 }
-function add(e) {
-    let note = document.querySelector('textarea');
+function add() {
+    let new_note = document.querySelector('.row1 .green');
+    let note = document.querySelector('.row2');
     let save = document.querySelector('.row3 .green');
     let cancel = document.querySelector('.row3 .red');
     let appear = [note, save, cancel];
@@ -41,22 +43,27 @@ function add(e) {
         element.toggleAttribute('style')
     }
     note.value = '';
-    e.target.removeEventListener('click', add)
+    new_note.removeEventListener('click', add)
 }
 let cancel = document.querySelector('.row3 .red')
 cancel.addEventListener('click', remove);
 
 function store_notes() {
-    let notes = document.querySelector('textarea').value;
+    let notes = document.querySelector('.row2').value;
     let lines = notes.split('\n');
     let first_line = lines[0];
-    if (lines.length === 1 && first_line !== '') {
+    let inNotesArray = false;
+    for (let note of notesArray) {
+        if (note.title === first_line)
+        inNotesArray = true;
+    }
+    if (lines.length === 1 && first_line !== '' && !inNotesArray) {
         notesArray.push({
                 title: first_line,
                 body: ''
             });
         addtolist(first_line);
-    } else if (lines.length > 0 && first_line !== '') {
+    } else if (lines.length > 0 && first_line !== '' && !inNotesArray) {
         lines.shift()
         let value = lines.join('\n')
         notesArray.push({
@@ -64,8 +71,19 @@ function store_notes() {
             body: value
         });
         addtolist(first_line);
+    } else {
+        lines.shift()
+        let value = lines.join('\n')
+        updatenote(first_line, value)
     }
-    document.querySelector('textarea').value = ''
+    document.querySelector('.row2').value = ''
+}
+function updatenote (title, value) {
+    for (let note of notesArray) {
+        if (title === note.title) {
+            note.body = value
+        }
+    }
 }
 function addtolist(title) {
     list = document.querySelector('nav ul');
@@ -85,9 +103,10 @@ let save = document.querySelector('.row3 .green');
 save.addEventListener('click', store_notes);
 
 function select_note (e) {
+    add()
     for (let notes of notesArray) {
         if (e.target.innerText === notes.title) {
-            note_area = document.querySelector('textarea');
+            note_area = document.querySelector('.row2');
             note_area.value = notes.title + '\n' + notes.body;
         }
     }
