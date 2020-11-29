@@ -13,28 +13,26 @@
         <header>
             <h1>Take Better Notes</h1>
         </header>
-        <main>
+        <main id='lightmode_main'>
             <section class='content'>
                 <div class='row1'>
-                    <button class='green buttons' type="button" onclick="alert('New Note')">New Note</button>
-                    <button class='grey buttons' type="button" onclick="alert('Dark Theme')">Dark Theme</button>
+                    <button class='green buttons' type="button">New Note</button>
+                    <button id='lightmode_btn' class='grey buttons' type="button">Dark Theme</button>
                 </div>
-                <textarea class='row2'>
-                    This is a placeholder
-                </textarea>
+                <textarea class='row2'>  </textarea>
                 <div class='row3'>
-                    <button class='green buttons' type="button" onclick="alert('Save')">Save</button>
-                    <button class='red buttons' type="button" onclick="alert('Cancel')">Cancel</button>
+                    <button class='green buttons' type="button">Save</button>
+                    <button class='red buttons' type="button">Cancel</button>
                 </div>
             </section>
         </main>
-        <aside>
+        <nav id='lightmode_nav'>
             <h2>My Notes</h2>
             <ul>
                 <li>note one</li>
                 <li>note two</li>
             </ul>
-        </aside>
+        </nav>
         <footer>
             <h3>Keep in Touch</h3>
             <ul class='flex-container'>
